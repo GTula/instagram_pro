@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Pro</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📸 Instagram Pro</h1>
+      <p class="subtitle">Gestión de Follow/Unfollow</p>
+    </header>
+
+    <div class="status-section">
+      <div id="status" class="status-info">
+        <span class="status-dot"></span>
+        <span id="statusText">Esperando...</span>
+      </div>
+      <div id="progress" class="progress-container" style="display: none;">
+        <div class="progress-bar">
+          <div id="progressBar" class="progress-fill"></div>
+        </div>
+        <div id="progressText" class="progress-text">0 de 0</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>⚡ Velocidad de Operación</h3>
+      <div class="speed-options">
+        <label class="radio-option">
+          <input type="radio" name="speed" value="safe" checked>
+          <span class="radio-label">
+            <strong>🛡️ Segura</strong>
+            <small>15-25 seg/acción (Recomendada)</small>
+          </span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="speed" value="moderate">
+          <span class="radio-label">
+            <strong>⚖️ Moderada</strong>
+            <small>8-15 seg/acción (Riesgo medio)</small>
+          </span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="speed" value="fast">
+          <span class="radio-label">
+            <strong>⚠️ Rápida</strong>
+            <small>3-8 seg/acción (Mayor riesgo)</small>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>🎯 Límite de Acciones</h3>
+      <div class="input-group">
+        <label for="actionLimit">Número máximo de acciones:</label>
+        <input type="number" id="actionLimit" min="1" max="500" value="50" placeholder="50">
+        <small class="help-text">Recomendado: máx. 50-100 por sesión para evitar baneos</small>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>🎬 Acciones</h3>
+      <div class="action-buttons">
+        <button id="followBtn" class="btn btn-primary">
+          <span class="btn-icon">➕</span>
+          Seguir en Masa
+        </button>
+        <button id="unfollowBtn" class="btn btn-secondary">
+          <span class="btn-icon">➖</span>
+          Dejar de Seguir
+        </button>
+        <button id="stopBtn" class="btn btn-danger" style="display: none;">
+          <span class="btn-icon">⏹️</span>
+          Detener
+        </button>
+      </div>
+    </div>
+
+    <div class="section info-section">
+      <h4>ℹ️ Consejos de Seguridad</h4>
+      <ul class="tips-list">
+        <li>✓ Usa la velocidad <strong>Segura</strong> para evitar bloqueos</li>
+        <li>✓ No excedas 50-100 acciones por sesión</li>
+        <li>✓ Espera al menos 1-2 horas entre sesiones</li>
+        <li>✓ Instagram detecta patrones automáticos</li>
+        <li>✓ Asegúrate de estar en una lista de seguidores/siguiendo</li>
+      </ul>
+    </div>
+
+    <div class="section stats-section">
+      <h4>📊 Estadísticas</h4>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Completadas:</span>
+          <span id="completedCount" class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Fallidas:</span>
+          <span id="failedCount" class="stat-value">0</span>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <small>⚠️ Usa esta extensión bajo tu propia responsabilidad</small>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
