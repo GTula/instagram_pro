@@ -19,7 +19,10 @@ const actionLimitInput = document.getElementById('actionLimit');
 // Load saved settings
 chrome.storage.sync.get(['speed', 'actionLimit'], (result) => {
   if (result.speed) {
-    document.querySelector(`input[name="speed"][value="${result.speed}"]`).checked = true;
+    const speedRadio = document.querySelector(`input[name="speed"][value="${result.speed}"]`);
+    if (speedRadio) {
+      speedRadio.checked = true;
+    }
   }
   if (result.actionLimit) {
     actionLimitInput.value = result.actionLimit;
@@ -112,7 +115,7 @@ async function startOperation(type) {
   const isOnInstagram = await checkInstagramPage();
   if (!isOnInstagram) return;
   
-  const limit = parseInt(actionLimitInput.value) || 50;
+  const limit = parseInt(actionLimitInput.value, 10) || 50;
   const speedSettings = getSpeedSettings();
   
   // Update UI

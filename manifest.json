@@ -9,7 +9,8 @@
     "scripting"
   ],
   "host_permissions": [
-    "https://www.instagram.com/*"
+    "*://instagram.com/*",
+    "*://*.instagram.com/*"
   ],
   "action": {
     "default_popup": "popup.html",
@@ -28,7 +29,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://www.instagram.com/*"],
+      "matches": ["*://instagram.com/*", "*://*.instagram.com/*"],
       "js": ["content.js"],
       "run_at": "document_idle"
     }

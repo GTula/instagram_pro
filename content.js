@@ -16,8 +16,9 @@ function sleep(ms) {
 
 // Send message to popup
 function sendMessageToPopup(action, data) {
-  chrome.runtime.sendMessage({ action, ...data }).catch(() => {
-    // Popup might be closed
+  chrome.runtime.sendMessage({ action, ...data }).catch((error) => {
+    // Popup might be closed, which is expected behavior
+    console.log('Popup not available:', error.message);
   });
 }
 
@@ -26,11 +27,6 @@ async function clickButton(button) {
   // Scroll element into view
   button.scrollIntoView({ behavior: 'smooth', block: 'center' });
   await sleep(randomDelay(200, 500));
-  
-  // Add slight random mouse movement simulation
-  const rect = button.getBoundingClientRect();
-  const x = rect.left + rect.width / 2 + randomDelay(-5, 5);
-  const y = rect.top + rect.height / 2 + randomDelay(-5, 5);
   
   // Click the button
   button.click();
@@ -95,11 +91,17 @@ async function confirmUnfollow() {
 
 // Scroll to load more users
 async function scrollToLoadMore() {
-  // Find the scrollable dialog/list
-  const scrollableElements = document.querySelectorAll('[role="dialog"] > div, div[style*="overflow"]');
+  // Find the scrollable dialog/list - check both role="dialog" containers and computed overflow
+  const dialogDivs = document.querySelectorAll('[role="dialog"] > div');
   
-  for (const element of scrollableElements) {
-    if (element.scrollHeight > element.clientHeight) {
+  for (const element of dialogDivs) {
+    const computedStyle = window.getComputedStyle(element);
+    const isScrollable = computedStyle.overflow === 'auto' || 
+                        computedStyle.overflow === 'scroll' || 
+                        computedStyle.overflowY === 'auto' || 
+                        computedStyle.overflowY === 'scroll';
+    
+    if (isScrollable && element.scrollHeight > element.clientHeight) {
       const scrollTop = element.scrollTop;
       element.scrollTo({ top: element.scrollHeight, behavior: 'smooth' });
       await sleep(randomDelay(1500, 2500));
