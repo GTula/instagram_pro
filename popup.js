@@ -44,8 +44,28 @@ actionLimitInput.addEventListener('change', () => {
 async function checkInstagramPage() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   
-  if (!tab.url || !tab.url.includes('instagram.com')) {
+  if (!tab.url) {
     updateStatus('Por favor, abre Instagram primero', 'error');
+    followBtn.disabled = true;
+    unfollowBtn.disabled = true;
+    return false;
+  }
+  
+  // Proper URL validation to prevent URL spoofing
+  try {
+    const url = new URL(tab.url);
+    const isInstagram = url.hostname === 'instagram.com' || 
+                       url.hostname === 'www.instagram.com' || 
+                       url.hostname.endsWith('.instagram.com');
+    
+    if (!isInstagram) {
+      updateStatus('Por favor, abre Instagram primero', 'error');
+      followBtn.disabled = true;
+      unfollowBtn.disabled = true;
+      return false;
+    }
+  } catch (e) {
+    updateStatus('URL inválida', 'error');
     followBtn.disabled = true;
     unfollowBtn.disabled = true;
     return false;

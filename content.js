@@ -256,9 +256,19 @@ function stopOperation() {
 // Listen for messages from popup
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'START_OPERATION') {
-    // Check if on Instagram
-    if (!window.location.href.includes('instagram.com')) {
-      sendResponse({ success: false, message: 'Debes estar en Instagram' });
+    // Check if on Instagram with proper URL validation
+    try {
+      const url = new URL(window.location.href);
+      const isInstagram = url.hostname === 'instagram.com' || 
+                         url.hostname === 'www.instagram.com' || 
+                         url.hostname.endsWith('.instagram.com');
+      
+      if (!isInstagram) {
+        sendResponse({ success: false, message: 'Debes estar en Instagram' });
+        return;
+      }
+    } catch (e) {
+      sendResponse({ success: false, message: 'URL inválida' });
       return;
     }
     
