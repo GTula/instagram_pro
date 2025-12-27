@@ -2,6 +2,8 @@
 
 Una extensión de Chrome/Edge para gestionar follows y unfollows masivos en Instagram con controles de seguridad integrados.
 
+![Instagram Pro Extension](https://github.com/user-attachments/assets/15fbcc64-c5ed-4c31-b67e-c352c00b43f4)
+
 ## ✨ Características
 
 - 🎯 **Follow/Unfollow Masivo**: Automatiza el proceso de seguir o dejar de seguir usuarios
