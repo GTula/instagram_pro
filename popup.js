@@ -106,8 +106,10 @@ function getSpeedSettings() {
   const speed = document.querySelector('input[name="speed"]:checked').value;
   const settings = {
     safe: { min: 15000, max: 25000, name: 'Segura' },
-    moderate: { min: 8000, max: 15000, name: 'Moderada' },
-    fast: { min: 3000, max: 8000, name: 'Rápida' }
+    moderate: { min: 5000, max: 10000, name: 'Moderada' },
+    fast: { min: 2000, max: 4000, name: 'Rápida' },
+    veryfast: { min: 500, max: 2000, name: 'Muy Rápida' },
+    turbo: { min: 100, max: 500, name: 'Turbo' }
   };
   return settings[speed];
 }
