@@ -57,11 +57,11 @@
             <small>0.5-2 seg/acción (Alto riesgo)</small>
           </span>
         </label>
-        <label class="radio-option">
+        <label class="radio-option" id="turboOption">
           <input type="radio" name="speed" value="turbo">
           <span class="radio-label">
-            <strong>⚡⚡ Turbo</strong>
-            <small>0.1-0.5 seg/acción (Riesgo extremo)</small>
+            <strong>⚡⚡ Turbo 💎</strong>
+            <small>0.1-0.5 seg/acción (Premium)</small>
           </span>
         </label>
       </div>
@@ -72,7 +72,48 @@
       <div class="input-group">
         <label for="actionLimit">Número máximo de acciones:</label>
         <input type="number" id="actionLimit" min="1" max="500" value="50" placeholder="50">
-        <small class="help-text">Recomendado: máx. 50-100 por sesión para evitar baneos</small>
+        <small class="help-text" id="limitHelpText">Gratis: hasta 100 acciones | Premium: ilimitado</small>
+      </div>
+    </div>
+
+    <!-- Premium Features Section -->
+    <div class="section premium-section" id="premiumSection" style="display: none;">
+      <h3>💎 Características Premium</h3>
+      <div class="premium-status" id="premiumStatus">
+        <p class="premium-inactive">
+          <span class="premium-icon">🔒</span>
+          <strong>Versión Gratuita</strong>
+          <small>100 acciones disponibles</small>
+        </p>
+      </div>
+      <button id="premiumBtn" class="btn btn-premium">
+        <span class="btn-icon">💎</span>
+        Activar Premium
+      </button>
+    </div>
+
+    <!-- License Activation Modal -->
+    <div id="licenseModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h3>💎 Activar Licencia Premium</h3>
+        <p>Ingresa tu clave de licencia para desbloquear todas las características premium:</p>
+        <div class="license-features">
+          <p>✅ Acciones ilimitadas (>100)</p>
+          <p>✅ Velocidad Turbo (0.1-0.5s)</p>
+          <p>✅ Filtros avanzados</p>
+          <p>✅ Soporte prioritario</p>
+        </div>
+        <input type="text" id="licenseInput" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XX32" maxlength="35">
+        <div class="modal-buttons">
+          <button id="activateBtn" class="btn btn-primary">Activar</button>
+          <button id="cancelBtn" class="btn btn-secondary">Cancelar</button>
+        </div>
+        <div id="licenseError" class="error-message" style="display: none;"></div>
+        <div id="licenseSuccess" class="success-message" style="display: none;"></div>
+        <p class="buy-link">
+          <small>¿No tienes una licencia? <a href="#" id="buyLicense">Comprar ahora</a></small>
+        </p>
       </div>
     </div>
 
@@ -116,6 +157,10 @@
           <span class="stat-label">Fallidas:</span>
           <span id="failedCount" class="stat-value">0</span>
         </div>
+        <div class="stat-item">
+          <span class="stat-label">Acciones usadas:</span>
+          <span id="actionsUsed" class="stat-value">0/100</span>
+        </div>
       </div>
     </div>
 
@@ -124,6 +169,7 @@
     </footer>
   </div>
 
+  <script src="license.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

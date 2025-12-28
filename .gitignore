@@ -43,3 +43,16 @@ ENV/
 *.crx
 *.pem
 web-ext-artifacts/
+
+# Packaging
+*.zip
+instagram_pro_v*.zip
+
+# Backup files
+*_old.js
+*_backup.*
+*.bak
+
+# Store submission
+store_assets/
+promotional/

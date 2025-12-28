@@ -1,7 +1,9 @@
-// Popup script - handles UI interactions and communicates with content script
+// Popup script with premium features - handles UI interactions and communicates with content script
 
 let isRunning = false;
 let currentStats = { completed: 0, failed: 0 };
+let licenseManager = null;
+let isPremiumUser = false;
 
 // Elements
 const followBtn = document.getElementById('followBtn');
@@ -15,12 +17,146 @@ const progressText = document.getElementById('progressText');
 const completedCount = document.getElementById('completedCount');
 const failedCount = document.getElementById('failedCount');
 const actionLimitInput = document.getElementById('actionLimit');
+const actionsUsed = document.getElementById('actionsUsed');
+const premiumSection = document.getElementById('premiumSection');
+const premiumBtn = document.getElementById('premiumBtn');
+const premiumStatus = document.getElementById('premiumStatus');
+const licenseModal = document.getElementById('licenseModal');
+const closeModal = document.getElementById('closeModal');
+const activateBtn = document.getElementById('activateBtn');
+const cancelBtn = document.getElementById('cancelBtn');
+const licenseInput = document.getElementById('licenseInput');
+const licenseError = document.getElementById('licenseError');
+const licenseSuccess = document.getElementById('licenseSuccess');
+const buyLicense = document.getElementById('buyLicense');
+const turboOption = document.getElementById('turboOption');
+
+// Initialize license manager
+document.addEventListener('DOMContentLoaded', async () => {
+  licenseManager = new LicenseManager();
+  await initializePremiumFeatures();
+});
+
+// Initialize premium features
+async function initializePremiumFeatures() {
+  isPremiumUser = await licenseManager.isPremium();
+  const trialActions = await licenseManager.getTrialActionsUsed();
+  
+  // Show premium section
+  premiumSection.style.display = 'block';
+  
+  // Update UI based on premium status
+  if (isPremiumUser) {
+    const license = await licenseManager.getLicenseInfo();
+    premiumStatus.innerHTML = `
+      <p class="premium-active">
+        <span class="premium-icon">✅</span>
+        <strong>Premium Activo</strong>
+        <small>Válido hasta: ${new Date(license.expiry).toLocaleDateString()}</small>
+      </p>
+    `;
+    premiumBtn.textContent = '💎 Gestionar Licencia';
+    premiumBtn.classList.remove('btn-premium');
+    premiumBtn.classList.add('btn-secondary');
+    
+    // Enable turbo speed
+    turboOption.classList.remove('locked');
+    document.querySelector('input[value="turbo"]').disabled = false;
+    
+    // Update action limit help text
+    document.getElementById('limitHelpText').textContent = 'Premium: acciones ilimitadas';
+    
+    // Update actions used display
+    actionsUsed.textContent = '∞ Premium';
+  } else {
+    premiumStatus.innerHTML = `
+      <p class="premium-inactive">
+        <span class="premium-icon">🔒</span>
+        <strong>Versión Gratuita</strong>
+        <small>${100 - trialActions} acciones restantes</small>
+      </p>
+    `;
+    
+    // Lock turbo speed
+    turboOption.classList.add('locked');
+    document.querySelector('input[value="turbo"]').disabled = true;
+    
+    // Update actions used display
+    actionsUsed.textContent = `${trialActions}/100`;
+  }
+}
+
+// Premium button click
+premiumBtn.addEventListener('click', () => {
+  licenseModal.style.display = 'flex';
+  licenseInput.value = '';
+  licenseError.style.display = 'none';
+  licenseSuccess.style.display = 'none';
+});
+
+// Close modal
+closeModal.addEventListener('click', () => {
+  licenseModal.style.display = 'none';
+});
+
+cancelBtn.addEventListener('click', () => {
+  licenseModal.style.display = 'none';
+});
+
+// Activate license
+activateBtn.addEventListener('click', async () => {
+  const key = licenseInput.value.trim().toUpperCase();
+  
+  if (!key) {
+    showLicenseError('Por favor ingresa una clave de licencia');
+    return;
+  }
+  
+  activateBtn.disabled = true;
+  activateBtn.textContent = 'Activando...';
+  
+  const result = await licenseManager.activateLicense(key);
+  
+  if (result.success) {
+    showLicenseSuccess('¡Licencia activada correctamente!');
+    setTimeout(() => {
+      licenseModal.style.display = 'none';
+      initializePremiumFeatures();
+    }, 1500);
+  } else {
+    showLicenseError(result.error || 'Error al activar la licencia');
+  }
+  
+  activateBtn.disabled = false;
+  activateBtn.textContent = 'Activar';
+});
+
+// Buy license link
+buyLicense.addEventListener('click', (e) => {
+  e.preventDefault();
+  // Open purchase page - replace with your actual URL
+  window.open('https://tu-sitio.com/buy-license', '_blank');
+});
+
+// Show license error
+function showLicenseError(message) {
+  licenseError.textContent = message;
+  licenseError.style.display = 'block';
+  licenseSuccess.style.display = 'none';
+}
+
+// Show license success
+function showLicenseSuccess(message) {
+  licenseSuccess.textContent = message;
+  licenseSuccess.style.display = 'block';
+  licenseError.style.display = 'none';
+}
 
 // Load saved settings
 chrome.storage.sync.get(['speed', 'actionLimit'], (result) => {
   if (result.speed) {
     const speedRadio = document.querySelector(`input[name="speed"][value="${result.speed}"]`);
-    if (speedRadio) {
+    if (speedRadio && !speedRadio.disabled) {
       speedRadio.checked = true;
     }
   }
@@ -31,7 +167,15 @@ chrome.storage.sync.get(['speed', 'actionLimit'], (result) => {
 
 // Save settings on change
 document.querySelectorAll('input[name="speed"]').forEach(radio => {
-  radio.addEventListener('change', () => {
+  radio.addEventListener('change', async () => {
+    // Check if turbo and not premium
+    if (radio.value === 'turbo' && !isPremiumUser) {
+      radio.checked = false;
+      document.querySelector('input[name="speed"][value="fast"]').checked = true;
+      updateStatus('Velocidad Turbo requiere Premium 💎', 'error');
+      licenseModal.style.display = 'flex';
+      return;
+    }
     chrome.storage.sync.set({ speed: radio.value });
   });
 });
@@ -140,6 +284,23 @@ async function startOperation(type) {
   const limit = parseInt(actionLimitInput.value, 10) || 50;
   const speedSettings = getSpeedSettings();
   
+  // Check premium restrictions
+  const canPerform = await licenseManager.canPerformAction(limit, speedSettings.name.toLowerCase());
+  
+  if (!canPerform.allowed) {
+    if (canPerform.reason === 'premium_speed') {
+      updateStatus('Velocidad Turbo requiere Premium 💎', 'error');
+      licenseModal.style.display = 'flex';
+    } else if (canPerform.reason === 'premium_limit') {
+      updateStatus('Más de 100 acciones requiere Premium 💎', 'error');
+      licenseModal.style.display = 'flex';
+    } else if (canPerform.reason === 'trial_exceeded') {
+      updateStatus('Has alcanzado el límite gratuito (100 acciones) 💎', 'error');
+      licenseModal.style.display = 'flex';
+    }
+    return;
+  }
+  
   // Update UI
   isRunning = true;
   followBtn.style.display = 'none';
@@ -190,6 +351,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     updateProgress(message.current, message.total);
   } else if (message.action === 'UPDATE_STATS') {
     updateStats(message.completed, message.failed);
+    // Update trial actions if not premium
+    if (!isPremiumUser) {
+      licenseManager.incrementTrialActions(1).then(total => {
+        actionsUsed.textContent = `${total}/100`;
+      });
+    }
   } else if (message.action === 'UPDATE_STATUS') {
     updateStatus(message.message, message.type);
   } else if (message.action === 'OPERATION_COMPLETE') {
