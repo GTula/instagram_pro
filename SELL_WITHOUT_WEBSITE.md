@@ -1,6 +1,44 @@
 # 💰 Guía para Vender Licencias SIN Página Web Compleja
 
-## Opción 1: Página HTML Simple (RECOMENDADA) ✅
+## ⭐ ACTUALIZACIÓN: Ahora con PayPal Integrado
+
+La página `buy-license.html` ahora incluye **integración completa de PayPal**.
+
+**Ventajas:**
+- ✅ Acepta tarjetas de 200+ países
+- ✅ No requiere cuenta PayPal (pago como invitado)
+- ✅ Procesamiento automático de pagos
+- ✅ Comisión competitiva (4-6%)
+
+**Ver:** `PAYPAL_SETUP.md` para configuración completa (15-30 minutos)
+
+---
+
+## Opción 1: PayPal (NUEVO - MÁS RECOMENDADO) ✅
+
+Ya tienes el archivo `buy-license.html` con botones de PayPal integrados.
+
+### Ventajas de PayPal:
+
+✅ **Global:** Acepta pagos de 200+ países  
+✅ **Tarjetas:** Visa, Mastercard, AmEx, Discover  
+✅ **Sin cuenta:** Cliente paga como invitado  
+✅ **Seguro:** 100% confiable y encriptado  
+✅ **Comisión:** 4-6% (competitivo)  
+
+### Cómo Configurar (Resumen):
+
+1. **Crear cuenta PayPal Business** en paypal.com
+2. **Obtener Client ID** en developer.paypal.com
+3. **Actualizar buy-license.html** con tu Client ID
+4. **Subir a optimasolutions.uy** (o Netlify/GitHub Pages)
+5. **¡Listo!** Empieza a vender
+
+**Guía completa:** Lee `PAYPAL_SETUP.md` (paso a paso detallado)
+
+---
+
+## Opción 2: Página HTML Simple (Anterior - Sin PayPal)
 
 Ya tienes el archivo `buy-license.html` que es una página completa y profesional para vender licencias.
 

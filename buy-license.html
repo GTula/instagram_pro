@@ -301,7 +301,9 @@
             <li>Cancelación en cualquier momento</li>
             <li>Soporte por email</li>
           </ul>
-          <a href="mailto:contacto@optimasolutions.uy?subject=Licencia Premium Mensual - Instagram Pro&body=Hola, quiero comprar la licencia mensual de Instagram Pro." class="btn">Solicitar</a>
+          <!-- PayPal Button Placeholder - Monthly -->
+          <div id="paypal-button-monthly" style="margin-top: 10px;"></div>
+          <p style="font-size: 12px; color: #999; margin-top: 10px;">Pago seguro con PayPal o tarjeta</p>
         </div>
 
         <div class="price-card popular">
@@ -315,7 +317,9 @@
             <li>Ahorro significativo</li>
             <li>Soporte prioritario</li>
           </ul>
-          <a href="mailto:contacto@optimasolutions.uy?subject=Licencia Premium Anual - Instagram Pro&body=Hola, quiero comprar la licencia anual de Instagram Pro." class="btn">Solicitar</a>
+          <!-- PayPal Button Placeholder - Annual -->
+          <div id="paypal-button-annual" style="margin-top: 10px;"></div>
+          <p style="font-size: 12px; color: #999; margin-top: 10px;">Pago seguro con PayPal o tarjeta</p>
         </div>
 
         <div class="price-card">
@@ -328,29 +332,39 @@
             <li>Sin pagos recurrentes</li>
             <li>Actualizaciones gratis</li>
           </ul>
-          <a href="mailto:contacto@optimasolutions.uy?subject=Licencia Premium de por Vida - Instagram Pro&body=Hola, quiero comprar la licencia de por vida de Instagram Pro." class="btn">Solicitar</a>
+          <!-- PayPal Button Placeholder - Lifetime -->
+          <div id="paypal-button-lifetime" style="margin-top: 10px;"></div>
+          <p style="font-size: 12px; color: #999; margin-top: 10px;">Pago seguro con PayPal o tarjeta</p>
         </div>
       </div>
 
       <!-- Payment Methods -->
       <div class="contact-section">
-        <h3>💳 Métodos de Pago Aceptados</h3>
+        <h3>💳 Pago Seguro con PayPal</h3>
+        <p style="color: #666; margin: 15px 0; font-size: 16px;">
+          Acepta tarjetas de crédito/débito de todo el mundo:<br>
+          <strong>Visa, Mastercard, American Express, Discover</strong>
+        </p>
         <div class="payment-methods">
-          <div class="payment-badge">💳 Tarjeta de Crédito/Débito</div>
-          <div class="payment-badge">📱 Mercado Pago</div>
-          <div class="payment-badge">🏦 Transferencia Bancaria</div>
-          <div class="payment-badge">💰 PayPal</div>
+          <div class="payment-badge">💳 Tarjeta de Crédito</div>
+          <div class="payment-badge">💳 Tarjeta de Débito</div>
+          <div class="payment-badge">💰 Cuenta PayPal</div>
+          <div class="payment-badge">🌍 200+ Países</div>
         </div>
+        <p style="color: #999; font-size: 14px; margin-top: 15px;">
+          ✅ No necesitas cuenta PayPal - paga como invitado<br>
+          🔒 Pago 100% seguro y encriptado
+        </p>
       </div>
 
       <!-- How It Works -->
       <div class="steps">
         <h3>📋 Cómo Funciona</h3>
         <ol>
-          <li><strong>Solicita tu licencia:</strong> Haz click en "Solicitar" arriba o envía un email a contacto@optimasolutions.uy</li>
-          <li><strong>Recibes instrucciones de pago:</strong> Te enviaremos los detalles según tu método preferido</li>
-          <li><strong>Realizas el pago:</strong> Completa el pago usando el método que prefieras</li>
-          <li><strong>Recibes tu licencia:</strong> En menos de 24 horas (usualmente 1-2 horas) recibirás tu clave de 32 caracteres</li>
+          <li><strong>Selecciona tu plan:</strong> Elige el plan que mejor se adapte a tus necesidades</li>
+          <li><strong>Paga con PayPal:</strong> Click en el botón de PayPal y paga con tarjeta de crédito/débito o tu cuenta PayPal (no necesitas cuenta PayPal, puedes pagar como invitado)</li>
+          <li><strong>Confirmación automática:</strong> PayPal nos notifica inmediatamente de tu pago</li>
+          <li><strong>Recibes tu licencia:</strong> En menos de 24 horas (usualmente 1-2 horas) recibirás tu clave de 32 caracteres por email</li>
           <li><strong>Activas en la extensión:</strong> Abre Instagram Pro → Click en "💎 Activar Premium" → Ingresa tu clave</li>
           <li><strong>¡Listo!</strong> Disfruta de todas las características premium</li>
         </ol>
@@ -405,23 +419,165 @@
         </div>
 
         <div class="faq-item">
-          <strong>¿Es seguro?</strong>
-          <p>Sí, procesamos pagos de forma segura y tu información está protegida. No almacenamos datos de tarjetas.</p>
+          <strong>¿Necesito una cuenta PayPal para pagar?</strong>
+          <p>No. PayPal acepta pagos como invitado con cualquier tarjeta de crédito o débito Visa, Mastercard, American Express, etc.</p>
+        </div>
+
+        <div class="faq-item">
+          <strong>¿Es seguro pagar con PayPal?</strong>
+          <p>Sí, PayPal es uno de los procesadores de pago más seguros del mundo. No almacenamos ni tenemos acceso a tus datos de tarjeta.</p>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR-CLIENT-ID&currency=USD"></script>
+
   <script>
-    // Simple analytics (optional)
-    console.log('Instagram Pro - Página de compra cargada');
-    
-    // Track button clicks (optional)
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const plan = this.closest('.price-card').querySelector('h3').textContent;
-        console.log('Plan seleccionado:', plan);
-      });
+    /**
+     * INSTRUCCIONES PARA CONFIGURAR PAYPAL:
+     * 
+     * 1. Crea una cuenta PayPal Business en paypal.com
+     * 2. Ve a https://developer.paypal.com/dashboard/
+     * 3. Crea una "App" para obtener tu Client ID
+     * 4. Reemplaza "YOUR-CLIENT-ID" arriba con tu Client ID real
+     * 5. Los botones se renderizarán automáticamente
+     * 
+     * NOTA: El código a continuación maneja los pagos y debe enviar
+     * el email del comprador a tu sistema para generar y enviar la licencia.
+     * 
+     * Para producción, necesitarás:
+     * - Un backend simple (puede ser un webhook)
+     * - O procesar los emails de PayPal manualmente
+     * - O usar servicios como Zapier para automatizar
+     */
+
+    // Configuración de los planes
+    const plans = {
+      monthly: {
+        price: '4.99',
+        description: 'Licencia Premium Mensual - Instagram Pro'
+      },
+      annual: {
+        price: '29.99',
+        description: 'Licencia Premium Anual - Instagram Pro'
+      },
+      lifetime: {
+        price: '59.99',
+        description: 'Licencia Premium de por Vida - Instagram Pro'
+      }
+    };
+
+    // Función para crear botón de PayPal
+    function createPayPalButton(containerId, plan) {
+      if (typeof paypal === 'undefined') {
+        console.error('PayPal SDK no cargado. Verifica tu Client ID.');
+        document.getElementById(containerId).innerHTML = 
+          '<p style="color: red; font-size: 14px;">Error al cargar PayPal. <a href="mailto:contacto@optimasolutions.uy?subject=Problema con pago - ' + plan.description + '">Contáctanos</a></p>';
+        return;
+      }
+
+      paypal.Buttons({
+        style: {
+          layout: 'vertical',
+          color: 'blue',
+          shape: 'rect',
+          label: 'paypal'
+        },
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              description: plan.description,
+              amount: {
+                currency_code: 'USD',
+                value: plan.price
+              }
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            // Pago exitoso
+            const buyerEmail = details.payer.email_address;
+            const buyerName = details.payer.name.given_name + ' ' + details.payer.name.surname;
+            const orderId = details.id;
+            
+            // Mostrar mensaje de éxito
+            alert('¡Pago exitoso! Recibirás tu licencia en ' + buyerEmail + ' dentro de 24 horas.\n\nID de orden: ' + orderId);
+            
+            // IMPORTANTE: Aquí debes enviar la información a tu backend o email
+            // Opción 1: Enviar a un webhook/backend
+            /*
+            fetch('https://tu-backend.com/api/license-purchase', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                email: buyerEmail,
+                name: buyerName,
+                plan: plan.description,
+                orderId: orderId,
+                amount: plan.price
+              })
+            });
+            */
+            
+            // Opción 2: Recibir notificaciones de PayPal en tu email
+            // Ya configurado en tu cuenta PayPal - recibirás email automático
+            
+            // Opción 3: Usar formulario oculto para enviar email
+            console.log('Pago completado:', {
+              email: buyerEmail,
+              name: buyerName,
+              plan: plan.description,
+              orderId: orderId
+            });
+            
+            // Redirigir a página de confirmación
+            setTimeout(() => {
+              window.location.href = '#success';
+              document.body.innerHTML = `
+                <div style="max-width: 600px; margin: 100px auto; padding: 40px; text-align: center; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                  <h1 style="color: #27ae60; font-size: 48px; margin-bottom: 20px;">✅</h1>
+                  <h2 style="color: #262626; margin-bottom: 20px;">¡Pago Exitoso!</h2>
+                  <p style="color: #666; font-size: 18px; line-height: 1.6;">
+                    Tu pago de <strong>$${plan.price} USD</strong> ha sido procesado correctamente.
+                  </p>
+                  <p style="color: #666; font-size: 16px; margin: 20px 0;">
+                    Recibirás tu licencia de <strong>${plan.description}</strong> en:
+                  </p>
+                  <p style="color: #833ab4; font-size: 20px; font-weight: 600; margin: 20px 0;">
+                    ${buyerEmail}
+                  </p>
+                  <p style="color: #999; font-size: 14px; margin: 30px 0;">
+                    ID de orden: ${orderId}
+                  </p>
+                  <p style="color: #666; font-size: 14px; margin: 30px 0;">
+                    Si tienes alguna pregunta, contáctanos en:<br>
+                    <a href="mailto:contacto@optimasolutions.uy" style="color: #833ab4;">contacto@optimasolutions.uy</a>
+                  </p>
+                </div>
+              `;
+            }, 2000);
+          });
+        },
+        onError: function(err) {
+          console.error('Error en el pago:', err);
+          alert('Hubo un error al procesar el pago. Por favor intenta de nuevo o contáctanos en contacto@optimasolutions.uy');
+        }
+      }).render('#' + containerId);
+    }
+
+    // Renderizar botones de PayPal al cargar la página
+    window.addEventListener('DOMContentLoaded', function() {
+      // Botón mensual
+      createPayPalButton('paypal-button-monthly', plans.monthly);
+      
+      // Botón anual
+      createPayPalButton('paypal-button-annual', plans.annual);
+      
+      // Botón de por vida
+      createPayPalButton('paypal-button-lifetime', plans.lifetime);
     });
   </script>
 </body>
