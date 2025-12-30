@@ -134,8 +134,8 @@ activateBtn.addEventListener('click', async () => {
 // Buy license link
 buyLicense.addEventListener('click', (e) => {
   e.preventDefault();
-  // Open purchase page - replace with your actual URL
-  window.open('https://tu-sitio.com/buy-license', '_blank');
+  // Open purchase page - hosted on your domain
+  window.open('https://optimasolutions.uy/instagram-pro/buy-license.html', '_blank');
 });
 
 // Show license error

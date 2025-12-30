@@ -56,3 +56,9 @@ instagram_pro_v*.zip
 # Store submission
 store_assets/
 promotional/
+
+# License sales helpers (keep local)
+# Uncomment if you don't want to commit these
+# buy-license.html
+# generate-license.js
+# SELL_WITHOUT_WEBSITE.md
