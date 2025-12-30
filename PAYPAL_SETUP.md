@@ -124,7 +124,9 @@ PayPal te da cuentas de prueba:
 **Cuenta de comprador (cliente de prueba):**
 - Email: sb-buyer123@personal.example.com
 - Contraseña: (generada automáticamente)
-- **Tarjeta de prueba:** 4032039974960896 (Visa)
+- **Tarjeta de prueba:** Ver tarjetas oficiales en [PayPal Developer Docs](https://developer.paypal.com/tools/sandbox/card-testing/)
+
+**Nota de seguridad:** Nunca uses tarjetas de prueba reales. Solo usa las proporcionadas por PayPal en su documentación oficial.
 
 ### 2. Hacer una Compra de Prueba
 
@@ -200,7 +202,18 @@ Para automatizar 100%:
 ```javascript
 // server.js
 const express = require('express');
+const nodemailer = require('nodemailer');
 const app = express();
+
+// IMPORTANTE: Usa variables de entorno para credenciales
+// NO hardcodees passwords en el código
+const transporter = nodemailer.createTransporter({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,     // Usa variable de entorno
+    pass: process.env.EMAIL_PASSWORD  // Usa variable de entorno o App Password
+  }
+});
 
 app.post('/paypal-webhook', express.json(), async (req, res) => {
   const event = req.body;
@@ -223,6 +236,13 @@ app.post('/paypal-webhook', express.json(), async (req, res) => {
 });
 
 app.listen(3000);
+
+// CONFIGURACIÓN DE VARIABLES DE ENTORNO:
+// Crea archivo .env:
+// EMAIL_USER=contacto@optimasolutions.uy
+// EMAIL_PASSWORD=tu-app-password-aqui
+//
+// Usa dotenv: require('dotenv').config();
 ```
 
 ---

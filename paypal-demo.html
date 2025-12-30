@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PayPal Integration Demo - Instagram Pro</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .comparison {
+      max-width: 1200px;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    .comparison h1 {
+      text-align: center;
+      color: #262626;
+      margin-bottom: 40px;
+    }
+    
+    .side-by-side {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    
+    .before, .after {
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    
+    .before {
+      background: #fff9f9;
+    }
+    
+    .after {
+      background: #f9fff9;
+      border-color: #27ae60;
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .before h2 {
+      color: #e74c3c;
+    }
+    
+    .after h2 {
+      color: #27ae60;
+    }
+    
+    .price-card {
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      background: white;
+      margin-bottom: 15px;
+    }
+    
+    .price-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #262626;
+    }
+    
+    .price {
+      font-size: 28px;
+      font-weight: 700;
+      color: #833ab4;
+      margin: 10px 0;
+    }
+    
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      margin-top: 10px;
+    }
+    
+    .paypal-button {
+      background: #0070ba;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    
+    .paypal-button:before {
+      content: "🅿️ ";
+    }
+    
+    .paypal-note {
+      font-size: 12px;
+      color: #999;
+      text-align: center;
+      margin-top: 10px;
+    }
+    
+    .feature-list {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    
+    .feature-list h3 {
+      color: #262626;
+      margin-bottom: 15px;
+    }
+    
+    .feature-list ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .feature-list li {
+      padding: 8px 0;
+      color: #555;
+    }
+    
+    .feature-list li:before {
+      content: "✅ ";
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="comparison">
+    <h1>🔄 PayPal Integration - Antes y Después</h1>
+    
+    <div class="side-by-side">
+      <!-- BEFORE -->
+      <div class="before">
+        <h2>❌ Antes (Solo Email)</h2>
+        
+        <div class="price-card">
+          <h3>💳 Mensual</h3>
+          <div class="price">$4.99<small>/mes</small></div>
+          <a href="mailto:contacto@optimasolutions.uy?subject=Compra" class="btn">Solicitar</a>
+        </div>
+        
+        <div class="price-card">
+          <h3>🎯 Anual</h3>
+          <div class="price">$29.99<small>/año</small></div>
+          <a href="mailto:contacto@optimasolutions.uy?subject=Compra" class="btn">Solicitar</a>
+        </div>
+        
+        <div class="feature-list">
+          <h3>Cómo Funcionaba:</h3>
+          <ul>
+            <li>Click "Solicitar" abre email</li>
+            <li>Cliente envía solicitud</li>
+            <li>Tú respondes con datos de pago</li>
+            <li>Cliente paga manualmente</li>
+            <li>Tú generas y envías licencia</li>
+          </ul>
+          <p style="color: #e74c3c; margin-top: 15px; font-weight: 600;">
+            ⏰ Tiempo: Lento<br>
+            🌍 Alcance: Limitado<br>
+            📧 Manual: Sí
+          </p>
+        </div>
+      </div>
+      
+      <!-- AFTER -->
+      <div class="after">
+        <h2>✅ Ahora (Con PayPal)</h2>
+        
+        <div class="price-card">
+          <h3>💳 Mensual</h3>
+          <div class="price">$4.99<small>/mes</small></div>
+          <div class="paypal-button">PayPal - Pagar con Tarjeta</div>
+          <div class="paypal-note">Pago seguro con PayPal o tarjeta</div>
+        </div>
+        
+        <div class="price-card">
+          <h3>🎯 Anual</h3>
+          <div class="price">$29.99<small>/año</small></div>
+          <div class="paypal-button">PayPal - Pagar con Tarjeta</div>
+          <div class="paypal-note">Pago seguro con PayPal o tarjeta</div>
+        </div>
+        
+        <div class="feature-list">
+          <h3>Cómo Funciona Ahora:</h3>
+          <ul>
+            <li>Click botón PayPal</li>
+            <li>Cliente paga con tarjeta (o PayPal)</li>
+            <li>PayPal te notifica automáticamente</li>
+            <li>Tú generas y envías licencia</li>
+            <li>¡Listo!</li>
+          </ul>
+          <p style="color: #27ae60; margin-top: 15px; font-weight: 600;">
+            ⚡ Tiempo: Rápido<br>
+            🌍 Alcance: 200+ países<br>
+            💳 Tarjetas: Visa, Mastercard, AmEx
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div style="margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%); border-radius: 12px; color: white; text-align: center;">
+      <h2 style="color: white; margin-bottom: 15px;">🎉 Nuevas Características</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px;">
+        <div>
+          <div style="font-size: 36px; margin-bottom: 10px;">💳</div>
+          <div style="font-weight: 600;">Acepta Tarjetas</div>
+          <div style="font-size: 14px; opacity: 0.9;">Visa, Mastercard, AmEx</div>
+        </div>
+        <div>
+          <div style="font-size: 36px; margin-bottom: 10px;">🌍</div>
+          <div style="font-weight: 600;">200+ Países</div>
+          <div style="font-size: 14px; opacity: 0.9;">Pagos internacionales</div>
+        </div>
+        <div>
+          <div style="font-size: 36px; margin-bottom: 10px;">🔒</div>
+          <div style="font-weight: 600;">100% Seguro</div>
+          <div style="font-size: 14px; opacity: 0.9;">PayPal maneja todo</div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; text-align: center;">
+      <h3 style="color: #262626; margin-bottom: 15px;">📚 Documentación Incluida</h3>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; font-size: 14px;">
+        <div>
+          <strong>PAYPAL_SETUP.md</strong><br>
+          <span style="color: #666;">Configuración completa (30 min)</span>
+        </div>
+        <div>
+          <strong>EMAIL_TEMPLATES.md</strong><br>
+          <span style="color: #666;">Templates profesionales</span>
+        </div>
+        <div>
+          <strong>buy-license.html</strong><br>
+          <span style="color: #666;">Página lista con botones</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

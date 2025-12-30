@@ -419,15 +419,25 @@ Puedes usar:
 
 ### Usando Node.js
 
+**IMPORTANTE: Este es solo un ejemplo. NO uses credenciales hardcodeadas.**
+
 ```javascript
 const nodemailer = require('nodemailer');
 
+// Usa variables de entorno para credenciales sensibles
+// Crea archivo .env:
+// EMAIL_USER=contacto@optimasolutions.uy
+// EMAIL_PASSWORD=tu-app-password-de-gmail
+// 
+// Instala: npm install dotenv
+// Usa: require('dotenv').config();
+
 async function sendLicense(buyerEmail, plan, license, orderId) {
-  let transporter = nodemailer.createTransport({
+  let transporter = nodemailer.createTransporter({
     service: 'gmail',
     auth: {
-      user: 'contacto@optimasolutions.uy',
-      pass: 'tu-password'
+      user: process.env.EMAIL_USER,     // Variable de entorno
+      pass: process.env.EMAIL_PASSWORD  // Variable de entorno (App Password de Gmail)
     }
   });
 
@@ -438,7 +448,7 @@ async function sendLicense(buyerEmail, plan, license, orderId) {
   };
 
   await transporter.sendMail({
-    from: 'Instagram Pro <contacto@optimasolutions.uy>',
+    from: 'Instagram Pro <' + process.env.EMAIL_USER + '>',
     to: buyerEmail,
     subject: templates[plan].split('\n')[0],
     text: templates[plan]
@@ -446,6 +456,14 @@ async function sendLicense(buyerEmail, plan, license, orderId) {
       .replace('[PAYPAL-ORDER-ID]', orderId)
   });
 }
+
+// NUNCA hagas esto en producción:
+// user: 'contacto@optimasolutions.uy',  ❌ MAL
+// pass: 'tu-password'                    ❌ MAL
+//
+// Siempre usa:
+// user: process.env.EMAIL_USER,          ✅ BIEN
+// pass: process.env.EMAIL_PASSWORD       ✅ BIEN
 ```
 
 ---
