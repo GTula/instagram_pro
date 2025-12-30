@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Pro - Comprar Licencia Premium</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 40px 30px;
+    }
+
+    .pricing-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .price-card {
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .price-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      border-color: #833ab4;
+    }
+
+    .price-card.popular {
+      border-color: #833ab4;
+      border-width: 3px;
+      background: linear-gradient(135deg, #fff9e6 0%, #fffcf0 100%);
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #FFD700;
+      color: #1a1a1a;
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .price-card h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #262626;
+    }
+
+    .price {
+      font-size: 36px;
+      font-weight: 700;
+      color: #833ab4;
+      margin: 15px 0;
+    }
+
+    .price small {
+      font-size: 16px;
+      color: #666;
+    }
+
+    .savings {
+      color: #27ae60;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .features {
+      list-style: none;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .features li {
+      padding: 8px 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .features li:before {
+      content: "✓";
+      color: #27ae60;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px 20px;
+      background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(131, 58, 180, 0.4);
+    }
+
+    .contact-section {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .contact-section h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #262626;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .contact-item a {
+      color: #833ab4;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    .payment-methods {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .payment-badge {
+      background: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #666;
+      border: 1px solid #e0e0e0;
+    }
+
+    .steps {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      margin-top: 30px;
+    }
+
+    .steps h3 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #262626;
+    }
+
+    .steps ol {
+      padding-left: 20px;
+    }
+
+    .steps li {
+      margin: 12px 0;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .faq {
+      margin-top: 30px;
+      padding: 30px;
+      background: #f8f9fa;
+      border-radius: 12px;
+    }
+
+    .faq h3 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #262626;
+    }
+
+    .faq-item {
+      margin: 15px 0;
+    }
+
+    .faq-item strong {
+      color: #262626;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .faq-item p {
+      color: #666;
+      line-height: 1.5;
+      margin-left: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .pricing-section {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1 {
+        font-size: 28px;
+      }
+
+      .price {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📸 Instagram Pro Premium</h1>
+      <p>Desbloquea todo el potencial de la extensión</p>
+    </div>
+
+    <div class="content">
+      <!-- Pricing Cards -->
+      <div class="pricing-section">
+        <div class="price-card">
+          <h3>💳 Mensual</h3>
+          <div class="price">$4.99<small>/mes</small></div>
+          <ul class="features">
+            <li>Acciones ilimitadas</li>
+            <li>Velocidad Turbo</li>
+            <li>Cancelación en cualquier momento</li>
+            <li>Soporte por email</li>
+          </ul>
+          <!-- PayPal Button Placeholder - Monthly -->
+          <div id="paypal-button-monthly" style="margin-top: 10px;"></div>
+          <p style="font-size: 12px; color: #999; margin-top: 10px;">Pago seguro con PayPal o tarjeta</p>
+        </div>
+
+        <div class="price-card popular">
+          <div class="popular-badge">MÁS POPULAR</div>
+          <h3>🎯 Anual</h3>
+          <div class="price">$29.99<small>/año</small></div>
+          <div class="savings">Ahorras 50% ($59.88 → $29.99)</div>
+          <ul class="features">
+            <li>Todo lo de Mensual</li>
+            <li>12 meses de acceso</li>
+            <li>Ahorro significativo</li>
+            <li>Soporte prioritario</li>
+          </ul>
+          <!-- PayPal Button Placeholder - Annual -->
+          <div id="paypal-button-annual" style="margin-top: 10px;"></div>
+          <p style="font-size: 12px; color: #999; margin-top: 10px;">Pago seguro con PayPal o tarjeta</p>
+        </div>
+
+        <div class="price-card">
+          <h3>♾️ De por vida</h3>
+          <div class="price">$59.99<small>una vez</small></div>
+          <div class="savings">Mejor valor a largo plazo</div>
+          <ul class="features">
+            <li>Todo lo de Anual</li>
+            <li>Acceso perpetuo</li>
+            <li>Sin pagos recurrentes</li>
+            <li>Actualizaciones gratis</li>
+          </ul>
+          <!-- PayPal Button Placeholder - Lifetime -->
+          <div id="paypal-button-lifetime" style="margin-top: 10px;"></div>
+          <p style="font-size: 12px; color: #999; margin-top: 10px;">Pago seguro con PayPal o tarjeta</p>
+        </div>
+      </div>
+
+      <!-- Payment Methods -->
+      <div class="contact-section">
+        <h3>💳 Pago Seguro con PayPal</h3>
+        <p style="color: #666; margin: 15px 0; font-size: 16px;">
+          Acepta tarjetas de crédito/débito de todo el mundo:<br>
+          <strong>Visa, Mastercard, American Express, Discover</strong>
+        </p>
+        <div class="payment-methods">
+          <div class="payment-badge">💳 Tarjeta de Crédito</div>
+          <div class="payment-badge">💳 Tarjeta de Débito</div>
+          <div class="payment-badge">💰 Cuenta PayPal</div>
+          <div class="payment-badge">🌍 200+ Países</div>
+        </div>
+        <p style="color: #999; font-size: 14px; margin-top: 15px;">
+          ✅ No necesitas cuenta PayPal - paga como invitado<br>
+          🔒 Pago 100% seguro y encriptado
+        </p>
+      </div>
+
+      <!-- How It Works -->
+      <div class="steps">
+        <h3>📋 Cómo Funciona</h3>
+        <ol>
+          <li><strong>Selecciona tu plan:</strong> Elige el plan que mejor se adapte a tus necesidades</li>
+          <li><strong>Paga con PayPal:</strong> Click en el botón de PayPal y paga con tarjeta de crédito/débito o tu cuenta PayPal (no necesitas cuenta PayPal, puedes pagar como invitado)</li>
+          <li><strong>Confirmación automática:</strong> PayPal nos notifica inmediatamente de tu pago</li>
+          <li><strong>Recibes tu licencia:</strong> En menos de 24 horas (usualmente 1-2 horas) recibirás tu clave de 32 caracteres por email</li>
+          <li><strong>Activas en la extensión:</strong> Abre Instagram Pro → Click en "💎 Activar Premium" → Ingresa tu clave</li>
+          <li><strong>¡Listo!</strong> Disfruta de todas las características premium</li>
+        </ol>
+      </div>
+
+      <!-- Contact -->
+      <div class="contact-section">
+        <h3>📞 ¿Preguntas? Contáctanos</h3>
+        <div class="contact-info">
+          <div class="contact-item">
+            <span>📧 Email:</span>
+            <a href="mailto:contacto@optimasolutions.uy">contacto@optimasolutions.uy</a>
+          </div>
+          <div class="contact-item">
+            <span>🌐 Web:</span>
+            <a href="https://optimasolutions.uy" target="_blank">optimasolutions.uy</a>
+          </div>
+          <div class="contact-item">
+            <span>⏰ Tiempo de respuesta:</span>
+            <span>1-24 horas</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq">
+        <h3>❓ Preguntas Frecuentes</h3>
+        
+        <div class="faq-item">
+          <strong>¿Qué incluye la versión Premium?</strong>
+          <p>Acciones ilimitadas (más de 100), velocidad Turbo (0.1-0.5s por acción), sin límites de uso, y soporte prioritario.</p>
+        </div>
+
+        <div class="faq-item">
+          <strong>¿Cómo recibo mi licencia?</strong>
+          <p>Después del pago, recibirás un email con tu clave de licencia de 32 caracteres que ingresarás en la extensión.</p>
+        </div>
+
+        <div class="faq-item">
+          <strong>¿Puedo usar la licencia en varios dispositivos?</strong>
+          <p>La licencia es personal y se recomienda para un dispositivo. Contáctanos para licencias multi-dispositivo.</p>
+        </div>
+
+        <div class="faq-item">
+          <strong>¿Hay reembolsos?</strong>
+          <p>Ofrecemos garantía de 7 días. Si no estás satisfecho, te devolvemos tu dinero.</p>
+        </div>
+
+        <div class="faq-item">
+          <strong>¿La licencia caduca?</strong>
+          <p>Mensual: cada 30 días. Anual: cada año. De por vida: nunca caduca.</p>
+        </div>
+
+        <div class="faq-item">
+          <strong>¿Necesito una cuenta PayPal para pagar?</strong>
+          <p>No. PayPal acepta pagos como invitado con cualquier tarjeta de crédito o débito Visa, Mastercard, American Express, etc.</p>
+        </div>
+
+        <div class="faq-item">
+          <strong>¿Es seguro pagar con PayPal?</strong>
+          <p>Sí, PayPal es uno de los procesadores de pago más seguros del mundo. No almacenamos ni tenemos acceso a tus datos de tarjeta.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR-CLIENT-ID&currency=USD"></script>
+
+  <script>
+    /**
+     * INSTRUCCIONES PARA CONFIGURAR PAYPAL:
+     * 
+     * 1. Crea una cuenta PayPal Business en paypal.com
+     * 2. Ve a https://developer.paypal.com/dashboard/
+     * 3. Crea una "App" para obtener tu Client ID
+     * 4. Reemplaza "YOUR-CLIENT-ID" arriba con tu Client ID real
+     * 5. Los botones se renderizarán automáticamente
+     * 
+     * IMPORTANTE: En producción, considera usar variables de entorno
+     * o un archivo de configuración separado para el Client ID.
+     * 
+     * NOTA: El código a continuación maneja los pagos y debe enviar
+     * el email del comprador a tu sistema para generar y enviar la licencia.
+     * 
+     * Para producción, necesitarás:
+     * - Un backend simple (puede ser un webhook)
+     * - O procesar los emails de PayPal manualmente
+     * - O usar servicios como Zapier para automatizar
+     * 
+     * SEGURIDAD: Nunca expongas tu Secret Key. Solo usa Client ID.
+     */
+
+    // Configuración de los planes
+    const plans = {
+      monthly: {
+        price: '4.99',
+        description: 'Licencia Premium Mensual - Instagram Pro'
+      },
+      annual: {
+        price: '29.99',
+        description: 'Licencia Premium Anual - Instagram Pro'
+      },
+      lifetime: {
+        price: '59.99',
+        description: 'Licencia Premium de por Vida - Instagram Pro'
+      }
+    };
+
+    // Función para crear botón de PayPal
+    function createPayPalButton(containerId, plan) {
+      if (typeof paypal === 'undefined') {
+        console.error('PayPal SDK no cargado. Verifica tu Client ID.');
+        const fallbackHTML = '<p style="color: red; font-size: 14px;">Error al cargar PayPal. <a href="mailto:contacto@optimasolutions.uy?subject=' + 
+          encodeURIComponent('Problema con pago - ' + plan.description) + '">Contáctanos</a></p>';
+        document.getElementById(containerId).innerHTML = fallbackHTML;
+        return;
+      }
+
+      paypal.Buttons({
+        style: {
+          layout: 'vertical',
+          color: 'blue',
+          shape: 'rect',
+          label: 'paypal'
+        },
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              description: plan.description,
+              amount: {
+                currency_code: 'USD',
+                value: plan.price
+              }
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            // Pago exitoso - Sanitizar datos antes de mostrar
+            const buyerEmail = details.payer.email_address;
+            const buyerName = (details.payer.name.given_name + ' ' + details.payer.name.surname).substring(0, 100);
+            const orderId = details.id;
+            
+            // Mostrar mensaje de éxito (sanitizado)
+            const successMessage = '¡Pago exitoso! Recibirás tu licencia en las próximas 24 horas.\n\nID de orden: ' + orderId.substring(0, 20);
+            alert(successMessage);
+            
+            // IMPORTANTE: Aquí debes enviar la información a tu backend o email
+            // Opción 1: Enviar a un webhook/backend
+            /*
+            fetch('https://tu-backend.com/api/license-purchase', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                email: buyerEmail,
+                name: buyerName,
+                plan: plan.description,
+                orderId: orderId,
+                amount: plan.price
+              })
+            });
+            */
+            
+            // Opción 2: Recibir notificaciones de PayPal en tu email
+            // Ya configurado en tu cuenta PayPal - recibirás email automático
+            
+            // Opción 3: Usar formulario oculto para enviar email
+            // No logueamos información sensible en producción
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+              console.log('DEV MODE - Pago completado:', {
+                email: buyerEmail,
+                orderId: orderId
+              });
+            }
+            
+            // Redirigir a página de confirmación
+            setTimeout(() => {
+              window.location.href = '#success';
+              document.body.innerHTML = `
+                <div style="max-width: 600px; margin: 100px auto; padding: 40px; text-align: center; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);">
+                  <h1 style="color: #27ae60; font-size: 48px; margin-bottom: 20px;">✅</h1>
+                  <h2 style="color: #262626; margin-bottom: 20px;">¡Pago Exitoso!</h2>
+                  <p style="color: #666; font-size: 18px; line-height: 1.6;">
+                    Tu pago de <strong>$${plan.price} USD</strong> ha sido procesado correctamente.
+                  </p>
+                  <p style="color: #666; font-size: 16px; margin: 20px 0;">
+                    Recibirás tu licencia de <strong>${plan.description}</strong> en:
+                  </p>
+                  <p style="color: #833ab4; font-size: 20px; font-weight: 600; margin: 20px 0;">
+                    ${buyerEmail}
+                  </p>
+                  <p style="color: #999; font-size: 14px; margin: 30px 0;">
+                    ID de orden: ${orderId}
+                  </p>
+                  <p style="color: #666; font-size: 14px; margin: 30px 0;">
+                    Si tienes alguna pregunta, contáctanos en:<br>
+                    <a href="mailto:contacto@optimasolutions.uy" style="color: #833ab4;">contacto@optimasolutions.uy</a>
+                  </p>
+                </div>
+              `;
+            }, 2000);
+          });
+        },
+        onError: function(err) {
+          console.error('Error en el pago:', err);
+          alert('Hubo un error al procesar el pago. Por favor intenta de nuevo o contáctanos en contacto@optimasolutions.uy');
+        }
+      }).render('#' + containerId);
+    }
+
+    // Renderizar botones de PayPal al cargar la página
+    window.addEventListener('DOMContentLoaded', function() {
+      // Botón mensual
+      createPayPalButton('paypal-button-monthly', plans.monthly);
+      
+      // Botón anual
+      createPayPalButton('paypal-button-annual', plans.annual);
+      
+      // Botón de por vida
+      createPayPalButton('paypal-button-lifetime', plans.lifetime);
+    });
+  </script>
+</body>
+</html>

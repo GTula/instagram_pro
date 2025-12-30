@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build outputs
+dist/
+build/
+*.zip
+
+# Development
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Temporary files
+/tmp/
+*.tmp
+
+# OS
+.DS_Store
+desktop.ini
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.Python
+venv/
+env/
+ENV/
+
+# Extension packaging
+*.crx
+*.pem
+web-ext-artifacts/
+
+# Packaging
+*.zip
+instagram_pro_v*.zip
+
+# Backup files
+*_old.js
+*_backup.*
+*.bak
+
+# Store submission
+store_assets/
+promotional/
+
+# License sales helpers (keep local)
+# Uncomment if you don't want to commit these
+# buy-license.html
+# generate-license.js
+# SELL_WITHOUT_WEBSITE.md
